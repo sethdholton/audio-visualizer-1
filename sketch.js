@@ -12,7 +12,9 @@ let toggleFS = false;
 let particles = [];
 
 function preload() {
-    sound = loadSound('/assets/i-81-car-pileup.mp3');
+    // sound = loadSound('/assets/i-81-car-pileup.mp3');
+    // sound = loadSound('/assets/demoserenade.mp3');
+    sound = loadSound('/assets/smooveguitar.mp3');
 }
 
 function setup() {
@@ -34,8 +36,6 @@ function draw() {
       mid = fft.getEnergy("mid");
       highMid = fft.getEnergy("highMid");
       treble = fft.getEnergy("treble");
-
-      // console.log(bass);
 
       let avg = (bass + lowMid + mid + highMid + treble) / 5;
       let turnspeed = map(avg, 0, 255, .0000000000000001,.000005);
@@ -62,22 +62,16 @@ function draw() {
           push();
             translate(width/2, height/2);
             let r = map(i, 0, len, 0, TWO_PI);
-            // rotate(r-millis()/20000);
             rotate(r-(millis()*turnspeed));
-            // fill(100, 255, h);
             let thick = h * 0.005;
-            fill(255);
-            triangle(-5, height-(h*1.05), 0, height, 0 + thick, height);
-            // fill(150, 200, h*0.25);
-            fill(200);
-            triangle(0, height - (h*1.), 0, height, 10 + thick, height);
-            // fill(200, 150, h*0.1);
             fill(150);
-            triangle(0, height - (h*0.95), 0, height, 15 + thick, height);
-            // fill(255, 100, h*0.03);
+            triangle(-5, height-(h*1.05), 0, height, 0 + thick, height);
+            fill(125);
+            triangle(0, height - (h*1.), 0, height, 10 + thick, height);
             fill(100);
+            triangle(0, height - (h*0.95), 0, height, 15 + thick, height);
+            fill(75);
             triangle(0, height - (h*0.9), 0, height, 20 + thick, height);
-            // fill(0, 100, h*0.03);
             fill(0);
             triangle(0, height - (h*0.85), 0, height, 25 + thick, height);
           pop();
@@ -88,14 +82,10 @@ function draw() {
           translate(width/2, height/2.05);
           rotate(millis()/25000);
           push();
-            // translate(width/2, height/2);
-            // rotate(PI/(i*0.15));
             let r = map(i, 0, len, 0, TWO_PI);
             rotate(r+(millis()/15000));
-            fill(h*0.5, h*0.5, 255);
-            // strokeWeight(h/150);
+            fill(420-h*0.5, h*0.5, 255);
             noStroke();
-            // ellipse(0, height/4, width/50, h*0.33);
             ellipse(0, (h*0.095)+height/10, (h*50)/width, h*0.33);
           pop();
         pop();
@@ -113,49 +103,26 @@ function draw() {
           rotate(r+millis()/20000);
           stroke(255);
           strokeWeight(1);
-          // let fade = abs(((height/20)*0.5) - ((height/(20*wlen))*i));
           line(0, y, 0, 0);
-          // console.log(fade);
-          // rotate(r-millis()/20000)
-          // line(0, -y, 0, 0);
         pop();
       }
     }
-
-    //   for (let i = 0; i < len; i++) {
-    //       let x = map(i, 0, len, 0, width);
-    //       let h = map(spectrum[i], 0, 255, 0, height);
-    //       let w = width / len;
-    //       fill(255);
-    //       noStroke();
-    //       rect(x, 0, w, h);
-    //   }
-
-    //   let waveform = fft.waveform();
-
-    //   for (let i = 0; i < waveform.length; i++) {
-    //       let x = map(i, 0, waveform.length - 1, 0, width);
-    //       let y = map(waveform[i], -1, 1, 0, height);
-
-    //       circle(x, y, 2);
-    //   }
-    // }  
 
     if (stopped) {
       fill(100, 255, 255);
       textAlign(CENTER, CENTER);
       textSize(width/20);
       text("PRESS 'SPACE' TO START", width/2, height/2);
-    } else {
-      textAlign(LEFT, CENTER);
-      textSize(width/100);
-      text("Click to Toggle", width * 0.025, height * 0.9);
-      if (inputMic) {
-        text("Input: Mic", width * 0.025, height * 0.95);
-      } else {
-        text("Input: Music", width * 0.025, height * 0.95);
-      }
-    }
+    } //else {
+    //   textAlign(LEFT, CENTER);
+    //   textSize(width/100);
+    //   text("Click to Toggle", width * 0.025, height * 0.9);
+    //   if (inputMic) {
+    //     text("Input: Mic", width * 0.025, height * 0.95);
+    //   } else {
+    //     text("Input: Music", width * 0.025, height * 0.95);
+    //   }
+    // }
 }
 
 let stopped = true;
@@ -222,9 +189,9 @@ class Particle
     this.y = 0;
     this.xspeed = random(0, width/100);
     this.yspeed = random(0, height/20);
-    this.radius = random(0, width/100);
+    this.radius = random(0, width/80);
     this.brightness = 255;
-    this.color = random(0, 255);
+    // this.color = random(0, 255);
     this.direction = random(-1, 1);
   }
 
@@ -238,7 +205,7 @@ class Particle
       if (this.brightness >= 0) {
         this.brightness -= 5;
       }
-      fill(this.color, 255, this.brightness);
+      fill(this.brightness);
       if (this.radius >= 1) {
         this.radius--;
       }
