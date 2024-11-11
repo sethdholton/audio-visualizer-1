@@ -12,9 +12,9 @@ let toggleFS = false;
 let particles = [];
 
 function preload() {
-    // sound = loadSound('/assets/i-81-car-pileup.mp3');
-    // sound = loadSound('/assets/demoserenade.mp3');
-    sound = loadSound('/assets/smooveguitar.mp3');
+    // sound = loadSound('./assets/i-81-car-pileup.mp3');
+    // sound = loadSound('./assets/demoserenade.mp3');
+    sound = loadSound('./assets/smooveguitar.mp3');
 }
 
 function setup() {
